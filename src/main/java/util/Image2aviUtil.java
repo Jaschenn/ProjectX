@@ -13,6 +13,7 @@ import java.io.File;
  * Time: 17:15
  * Blog: http://www.rukia.cc
  */
+//todo:考虑这里的steps和Main中的扫描周期是否可以同步
 public class Image2aviUtil {
     /**
      * @param steps 描述生成视频的步长，单位是分钟，默认为10分钟 10分钟 = 10*60*30 = 18000张照片
@@ -27,6 +28,9 @@ public class Image2aviUtil {
          *
          * */
         AVIOutputStream out = null;
+        if (DATAENTY.imageQueue.size() > steps * 60 * 1000){
+            DATAENTY.Writable = true;
+        }//保证写的时候不会产生错误
         if (DATAENTY.Writable){
             try {
                 out = new AVIOutputStream(new File(path), VideoFormat.JPG);
@@ -44,7 +48,7 @@ public class Image2aviUtil {
                 e.printStackTrace();
             }
         }
-        DATAENTY.Writable = false;//直到由servlet中的生产者置为true时候才可以写，否则队列会溢出
+        DATAENTY.Writable = false;//直到下一轮扫描的时候，如果长度大于步长才允许进行remove操作。
         return true;
     }
 

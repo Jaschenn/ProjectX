@@ -37,13 +37,12 @@ public class ImageServlet extends HttpServlet {
         BufferedImage bufferedImage = ImageIO.read(request.getInputStream());
         if (name.charAt(6)=='R'){
             //需要重复。 时间是3s，也就是3s*30 = 90 张图片
-            for (int i = 0 ;i < 30;i++){
+            for (int i = 0 ;i < 90;i++){
                 DATAENTY.imageQueue.add(bufferedImage);
             }
         }else {
             DATAENTY.imageQueue.add(bufferedImage);
         }
-        DATAENTY.Writable = true;
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
