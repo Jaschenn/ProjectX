@@ -13,13 +13,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@WebServlet(name = "ImageServlet")
+@WebServlet("/ImageServlet") //这里需要注意前面需要加/表示项目的根目录
 public class ImageServlet extends HttpServlet {
     /**
      * 传输类型：File类型
      * 原始图片的颜色模式：RGB
      * */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         /**
          * 设计思路：
          * 采集端传过来的都是图片，因此需要去拼接视频。然后去保存这些视频到文件夹中。
@@ -39,9 +39,11 @@ public class ImageServlet extends HttpServlet {
             //需要重复。 时间是3s，也就是3s*30 = 90 张图片
             for (int i = 0 ;i < 90;i++){
                 DATAENTY.imageQueue.add(bufferedImage);
+                System.out.println("接收成功");
             }
         }else {
             DATAENTY.imageQueue.add(bufferedImage);
+            System.out.println("接收成功");
         }
     }
 
