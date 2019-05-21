@@ -11,6 +11,10 @@
     <title>$Title$</title>
 </head>
 <body>
-<a href="ImageServlet">fuck</a>
+<form action="ImageServlet" method="post">
+    <input type="file">
+    <button type="submit">fuck it !</button>
+
+</form>
 </body>
 </html>
